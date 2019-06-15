@@ -52,10 +52,7 @@ if __name__=='__main__':
         # the parallel executor
         executor = DaskExecutor(local_processes=True)
 
-        if args.once:
-            passes: List[int] = [int(args.once)]
-        else:
-            passes: List[int] = list(idx)
+        passes: List[int] = [int(args.once)] if args.once else list(idx)
 
         # iterable task
         results_ = solve.map(Parameter("passes"))

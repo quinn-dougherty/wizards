@@ -7,5 +7,4 @@ before_install:
   - docker build -t wizards-env .
 
 script:
-  - docker run -v $(pwd):/home/jovyan wizards-env
-  - mypy *.py
+  - docker run -v $(pwd):/home/jovyan wizards-env -c "mypy *.py"
