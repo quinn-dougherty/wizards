@@ -1,9 +1,10 @@
 # Wizards
 
 [![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://travis-ci.org/quinn-dougherty/wizards)
-
 [![Inline docs](http://inch-ci.org/github/quinn-dougherty/wizards.svg?branch=master)](http://inch-ci.org/github/quinn-dougherty/wizards)
-
+ [![License:
+ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+ 
 Software for assigning students to capstone projects, for [Lambda School](https://lambdaschool.com/)'s Labs program
 
 Wizards is an implementation of something like the [stable marriage problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) or the
