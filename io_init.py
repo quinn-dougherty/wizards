@@ -150,7 +150,7 @@ def init_reset(db_prefix: str):
     with db_access(db_prefix + SQL) as db:
         c = db.cursor()
 
-        print(f"num_passes: {db_prefix[0]}", end='  .....  ')
+        print(f"num_passes: {db_prefix[7:8]}", end='  .....  ')
 
         survey_df.to_sql("survey", db, index=False, if_exists='replace')
         print("wrote survey_df to table survey", end='  .....  ')

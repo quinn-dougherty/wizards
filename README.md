@@ -4,7 +4,7 @@ Software for assigning students to capstone projects, for [Lambda School](https:
 
 Wizards is an implementation of something like the [stable marriage problem](https://en.wikipedia.org/wiki/Stable_marriage_problem) or the
 [resident matching service](https://www.carms.ca/), which differs crucially
-because only one class of objects has preferences. In addition, there are
+because, for us, only one class of objects has preferences. In addition, there are
 various customizations built on top of it, but at its core the solver is inspired by
 those problem.  
 

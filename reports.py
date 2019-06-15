@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # type: ignore
 plt.style.use('dark_background')
-from pandas import DataFrame
-from numpy import arange
+from pandas import DataFrame # type: ignore
+from numpy import arange # type: ignore
 from io_init import db_access, SQL
 from typing import List, Tuple, Callable
 
@@ -58,7 +58,7 @@ def summary_txt(results: DataFrame,
                 num_people: int,
                 best_str: str):
     '''writes a summary'''
-    db_prefix: Callable[[str], str] = lambda passes: f"output/{passes}-passes-"
+    db_prefix: Callable[[int], str] = lambda passes: f"output/{passes}-passes-"
 
     best_idx: int = int(results.cost.astype(float).idxmin())
 

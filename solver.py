@@ -37,7 +37,7 @@ def flip(surj: Dict[A, B]) -> Dict[B, List[A]]:
 ####                   ####
 ###########################
 
-def get_rankorder(person, db_prefix: str) -> List[str]:
+def get_rankorder(person: str, db_prefix: str) -> List[str]:
     '''docstring'''
     q = f"SELECT rank_order FROM survey WHERE person_name=\"{person}\""
 
@@ -231,11 +231,9 @@ def unfriendly_warning(assgnmnt: Dict[str, str], db_prefix: str) -> Dict[str, st
 
 @task
 def solve(#unpopulars: List[str],
-          passes: int = 3) -> Union[Tuple[int,
-                                          int,
-                                          List[str]],
-                                    StopIteration]:
-    ''' '''
+          passes: int = 3) -> Tuple[int, int, List[str]]:
+    ''' the solver makes a pass, drops one of the unpopular projects that remains, and makes another pass '''
+
     db_prefix: str = f"output/{passes}-passes-"
     init_reset(db_prefix=db_prefix)
 
@@ -243,18 +241,19 @@ def solve(#unpopulars: List[str],
 
     person_proj_preferences_map = get_person_proj_preferences_map(db_prefix=db_prefix)
 
-    #for person, proj_preferences in person_proj_preferences_map.items():
-    #    person_proj_preferences_map[person] = [proj for proj in proj_preferences]#if proj not in unpopulars]
+    # solve it initally
     _solve(person_proj_preferences_map, iternum=0, db_prefix=db_prefix)
+
 
     for k in tqdm(range(1, passes), desc=f"solving {passes} times"):
         try:
-            drop.__next__()
+            drop.__next__() # drop one unpopular
         except StopIteration as e:
-            _solve(person_proj_preferences_map, iternum=k+1, db_prefix=db_prefix)
+            #_solve(person_proj_preferences_map, iternum=k+1, db_prefix=db_prefix)
             break
         finally:
             _solve(person_proj_preferences_map, iternum=k, db_prefix=db_prefix)
+
     unassigned = get_unassigned(db_prefix=db_prefix)
 
     assignment = get_assignment(db_prefix=db_prefix)

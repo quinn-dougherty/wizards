@@ -53,9 +53,9 @@ if __name__=='__main__':
         executor = DaskExecutor(local_processes=True)
 
         if args.once:
-            passes = [args.once]
+            passes: List[int] = [int(args.once)]
         else:
-            passes = idx
+            passes: List[int] = list(idx)
 
         # iterable task
         results_ = solve.map(Parameter("passes"))
@@ -82,8 +82,8 @@ if __name__=='__main__':
 
     bars(df, args.weight)
 
-    for idx in (best_idx - 1, best_idx, best_idx + 1):
+    for i in (best_idx - 1, best_idx, best_idx + 1):
         try:
-            summary_txt(results=df, idx=idx, num_people=NUM_PEOPLE, best_str=best)
+            summary_txt(results=df, idx=i, num_people=NUM_PEOPLE, best_str=best)
         except:
             print(f"couldn't summarize {idx}")
