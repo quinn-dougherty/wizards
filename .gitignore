@@ -1,4 +1,12 @@
 # Byte-compiled / optimized / DLL files
+*.csv
+*.sqlite3
+*.sqlite3-journaled
+dask-worker-space/
+output/
+.bash_history
+
+
 __pycache__/
 *.py[cod]
 *$py.class
