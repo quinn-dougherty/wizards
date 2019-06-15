@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from typing import List
+from typing import List, Iterator
 import sqlite3
 from contextlib import contextmanager
 import pandas as pd # type: ignore
@@ -139,14 +139,15 @@ NUM_PEOPLE = survey_df.shape[0]
 ##############################
 
 @contextmanager
-def db_access(sqlite3_file):
+def db_access(sqlite3_file: str) -> Iterator[sqlite3.Connection]:
+    ''' open a sql connection and yield it '''
     conn = sqlite3.connect(sqlite3_file)
     yield conn
     conn.commit()
     conn.close()
 
 def init_reset(db_prefix: str):
-    # init dbs.
+    ''' read in csvs and init database.  '''
     with db_access(db_prefix + SQL) as db:
         c = db.cursor()
 

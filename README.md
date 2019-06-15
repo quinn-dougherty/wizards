@@ -1,4 +1,4 @@
-# Wizards
+# Wizards; _an assignment service_
 
 [![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://travis-ci.org/quinn-dougherty/wizards)
 [![Inline docs](http://inch-ci.org/github/quinn-dougherty/wizards.svg?branch=master)](http://inch-ci.org/github/quinn-dougherty/wizards)
