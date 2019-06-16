@@ -52,5 +52,5 @@ recommend an app like [this](https://sqlitebrowser.org/) for easy perusing.
 
 # Code
 
-It's parallelized as a Prefect task and compliant with [PEP
+Wizards is parallelized as a Prefect task and compliant with [PEP
 484](https://www.python.org/dev/peps/pep-0484/). 
