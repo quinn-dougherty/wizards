@@ -5,6 +5,7 @@ plt.style.use('dark_background')
 from pandas import DataFrame # type: ignore
 from numpy import arange # type: ignore
 from io_init import db_access, SQL
+from solver import get_assignment, unfriendly_warning, dict_printer
 from typing import List, Tuple, Callable
 
 def get_surplus_pop(db_prefix: str) -> List[Tuple[str, str]]:
@@ -17,7 +18,7 @@ def get_surplus_pop(db_prefix: str) -> List[Tuple[str, str]]:
         proj_surplus_pop = c.fetchall()
 
         #print(proj_surplus_pop)
-        return proj_surplus_pop
+        return sorted(proj_surplus_pop, key=lambda t: int(t[1]))
 
 def bars(results: DataFrame, weight):
     # create plot
@@ -64,16 +65,21 @@ def summary_txt(results: DataFrame,
 
     surpluses: List[Tuple[str, str]] = get_surplus_pop(db_prefix(idx))
 
+    assignment = get_assignment(db_prefix(idx))
+
+    warnings = unfriendly_warning(assignment, db_prefix(idx))
+
     with open(f'output/{idx}-passes-summary.txt', 'w') as f:
 
         f.write(best_str + '\n\n')
-        f.write("------" + f" ACCORDING TO THE {idx} PASSES MATCH: " + "------")
+        f.write("------" + f" ACCORDING TO THE {idx} PASSES MATCH: " + "------" + "\n\n")
         result = results.loc[idx]
         f.write(f"According to {idx} passes match, there are {result.unpopular_remaining} unpopular remaining projects\n\n")
         f.write(f"they are {result[2]}\n\n")
         f.write(f"and {result.people_unassigned} people unassigned, or {100 * (result.people_unassigned / num_people):.4}%\n\n")
-        f.write("it only covered Web students. DS and iOS need to be done by hand. \n\n")
+        f.write("it only covered Web students. All other tracks (Mobile, UX, DS) need to be done by hand. \n\n")
         f.write('\t')
+        f.write('\npeople grouped with people they dont want to work with warnings: ' + dict_printer(warnings) + '\n\n')
         f.write('\n\t'.join(f"{proj[0]} has a surplus popularity score of {proj[1]}" for proj in surpluses))
         f.write('\n')
 

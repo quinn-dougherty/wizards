@@ -79,8 +79,8 @@ if __name__=='__main__':
 
     bars(df, args.weight)
 
-    for i in (best_idx - 1, best_idx, best_idx + 1):
+    for i in (best_idx - 1, best_idx, best_idx + 1, best_idx + 5):
         try:
             summary_txt(results=df, idx=i, num_people=NUM_PEOPLE, best_str=best)
         except:
-            print(f"couldn't summarize {idx}")
+            print(f"couldn't summarize {i}")

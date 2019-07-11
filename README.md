@@ -1,6 +1,6 @@
 # Wizards: _an Assignment Assistant_
 
-[![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://travis-ci.org/quinn-dougherty/wizards)
+[![Build Status](https://travis-ci.org/quinn-dougherty/wizards.svg?branch=master)](https://travis-ci.org/quinn-dougherty/wizards)
 [![Inline docs](http://inch-ci.org/github/quinn-dougherty/wizards.svg?branch=master)](http://inch-ci.org/github/quinn-dougherty/wizards)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![License:
@@ -23,10 +23,15 @@ soon).
 It runs in Python 3.7 with Pandas and parallelization in [Prefect](https://docs.prefect.io/). If cloned with the Dockerfile,
 just type
 
-``` shell
+```shell
 docker build -t wizards-env .
 docker run -it -v $(pwd):/home/jovyan/ wizards-env
 \# python main.py
+```
+
+Or, with container built, run 
+```shell 
+docker run -it -v $(pwd):/home/jovyan/ wizards-env -c "python src/main.py --idx-range 2"
 ```
 
 The command line arguments specify how wide a search over solver parameters and

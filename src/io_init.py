@@ -11,16 +11,16 @@ import pandas as pd # type: ignore
 ##############################
 ##############################
 
-PROJECTS_CSV_PATH = 'projects-1318.csv'
-SURVEY_CSV_PATH = 'survey-0350.csv'
-SQL = '0350.sqlite3'
+PROJECTS_CSV_PATH = 'input/projects-1130.csv'
+SURVEY_CSV_PATH = 'input/survey-1515.csv'
+SQL = '1515.sqlite3'
 
 MAX_PREFS = 6
 
 RANKS_NAMES: List[str] = [x + '_proj_choice'
                           for x
                           in ('first', 'second', 'third', 'fourth', 'fifth', 'sixth')]
-STRONG_SEP: str = ' || ' # because a comma is too weak
+STRONG_SEP: str = ','#' || ' # because a comma is too weak
 # FIRST: int = 1 # index, consult the data you get
 # LAST: int = 39 # index, consult the data you get
 
@@ -71,18 +71,18 @@ def read_in_projects(filename: str) -> pd.DataFrame:
                       DS = None,
                       iOS = None,
 
-                      max_Web = dat.max_staff.apply(lambda s: int(s[0])),
-                      min_Web = dat.max_staff.apply(lambda s: int(s[0]) - 3
-                                                    if int(s[0]) != 0
-                                                    else 99),
-                      max_DS = dat.max_staff.apply(lambda s: int(s[2])),
-                      min_DS = dat.max_staff.apply(lambda s: int(s[2]) - 1
-                                                    if int(s[2]) != 0
-                                                    else 99),
-                      max_iOS = dat.max_staff.apply(lambda s: int(s[4])),
-                      min_iOS = dat.max_staff.apply(lambda s: int(s[4]) - 1
-                                                    if int(s[4]) != 0
-                                                    else 99),
+                      max_Web = dat.max_staff.apply(int),
+                      min_Web = dat.max_staff.apply(lambda s: int(s) - 1), 
+                                                    #if int(s) != 0
+                                                    #else 99),
+                      #max_DS = dat.max_staff.apply(lambda s: int(s[2])),
+                      #min_DS = dat.max_staff.apply(lambda s: int(s[2]) - 1
+                      #                              if int(s[2]) != 0
+                      #                              else 99),
+                      #max_iOS = dat.max_staff.apply(lambda s: int(s[4])),
+                      #min_iOS = dat.max_staff.apply(lambda s: int(s[4]) - 1
+                      #                              if int(s[4]) != 0
+                      #                              else 99),
                       surplus_popularity = 0)
            .fillna('')
            .drop('max_staff', axis=1)
@@ -105,13 +105,14 @@ def read_in_survey(filepath: str,
                               '5th Project Choice (optional)': ranks_names[4],
                               '6th Project Choice (optional)': ranks_names[5],
                               '3 Preferred Students': 'friends',
-                              "Students You DON'T want to work with (optional)": 'enemies',
-                              "Submission Time": 'timestamp'
+                              "Students you DON'T want to work with": 'enemies',
+                              "Submission Time": 'timestamp',
+                              "Created Time": "timestamp"
                              })
             [['person_name', 'timestamp', 'track'] + ranks_names + ['friends', 'enemies']]
-             .assign(assigned=None))
+             .assign(assigned=None))#, timestamp=1))
 
-    to_keep = (dat.track=="DS") | (dat.track=="Web")
+    to_keep = (dat.track=="Web") #| (dat.track=="DS") 
 
     ranks = dat[ranks_names].applymap(project_str_optional_clean).assign(rank_order=None).fillna("None")
 
