@@ -12,7 +12,7 @@ Wizards is an implementation of something like the [stable marriage problem](htt
 [resident matching service](https://www.carms.ca/), which differs crucially
 because, for us, only one class of objects has preferences. In addition, there are
 various customizations built on top of it, but at its core the solver is inspired by
-those problem.  
+those problems.  
 
 # Usage
 
