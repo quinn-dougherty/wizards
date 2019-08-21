@@ -20,7 +20,7 @@ B = TypeVar('B')
 def dict_printer(F: Dict[str, str]) -> str:
     return '\n\t'.join(f"{key}: {value}" for key, value in F.items())
 
-def preimage(b: B, f: Dict[A, B]) -> List[A]:
+def preimage(b: B, f: Dict[str, B]) -> List[str]:
     ''' get the preimage of one item. '''
     return [a for a in f.keys() if f[a]==b]
 
